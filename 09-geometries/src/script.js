@@ -8,6 +8,19 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
+/**
+ * Cursor
+ */
+const cursor = {
+    x: 0,
+    y: 0,
+};
+
+window.addEventListener("mousemove", (event) => {
+    cursor.x = event.clientX / sizes.width - 0.5;
+    cursor.y = - (event.clientY / sizes.height - 0.5);
+});
+
 // Scene
 const scene = new THREE.Scene()
 
@@ -23,8 +36,7 @@ const sizes = {
     height: window.innerHeight
 }
 
-window.addEventListener('resize', () =>
-{
+window.addEventListener('resize', () => {
     // Update sizes
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
@@ -57,12 +69,16 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // Animate
 const clock = new THREE.Clock()
 
-const tick = () =>
-{
+const tick = () => {
     const elapsedTime = clock.getElapsedTime()
 
     // Update controls
     controls.update()
+
+    camera.position.x = Math.sin(cursor.x * 2 * Math.PI) * 3;
+    camera.position.z = Math.cos(cursor.x * 2 * Math.PI) * 3;
+    camera.position.y = cursor.y * 3;
+    camera.lookAt(mesh.position);
 
     // Render
     renderer.render(scene, camera)

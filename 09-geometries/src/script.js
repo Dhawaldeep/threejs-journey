@@ -14,7 +14,7 @@ const canvas = document.querySelector('canvas.webgl')
 const cursor = {
     x: 0,
     y: 0,
-}
+};
 
 window.addEventListener("mousemove", (event) => {
     cursor.x = event.clientX / sizes.width - 0.5;

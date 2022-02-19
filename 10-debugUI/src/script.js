@@ -1,6 +1,14 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import gsap from 'gsap'
+import GUI from 'lil-gui'
+
+const gui = new GUI()
+
+const parameter = {
+    color: 0xff0000,
+};
 
 /**
  * Base
@@ -11,43 +19,19 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
-// Object
+/**
+ * Object
+ */
 // const geometry = new THREE.BoxGeometry(1, 1, 1)
-// const geometry = new THREE.SphereGeometry(1, 32, 32)
-const geometry = new THREE.BufferGeometry()
-// const positionsArray = new Float32Array(9)
+const geometry = new THREE.SphereGeometry(1, 32, 32)
 
-// // First vertice
-// positionsArray[0] = 0
-// positionsArray[1] = 0
-// positionsArray[2] = 0
-
-// // Second vertice
-// positionsArray[3] = 0
-// positionsArray[4] = 1
-// positionsArray[5] = 0
-
-// // Third vertice
-// positionsArray[6] = 1
-// positionsArray[7] = 0
-// positionsArray[8] = 0
-
-// Create 50 triangles (450 values)
-const count = 50
-const positionsArray = new Float32Array(count * 3 * 3)
-for(let i = 0; i < count * 3 * 3; i++)
-{
-    positionsArray[i] = (Math.random() - 0.5) * 4
-}
-
-const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3)
-
-geometry.setAttribute('position', positionsAttribute)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true })
+const material = new THREE.MeshBasicMaterial({ color: parameter.color })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
-// Sizes
+/**
+ * Sizes
+ */
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
@@ -68,7 +52,10 @@ window.addEventListener('resize', () =>
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
-// Camera
+/**
+ * Camera
+ */
+// Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.z = 3
 scene.add(camera)
@@ -77,14 +64,18 @@ scene.add(camera)
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 
-// Renderer
+/**
+ * Renderer
+ */
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-// Animate
+/**
+ * Animate
+ */
 const clock = new THREE.Clock()
 
 const tick = () =>
@@ -102,3 +93,24 @@ const tick = () =>
 }
 
 tick()
+
+/**
+ * Debug UI
+ */
+gui
+    .add(mesh.position, 'y')
+    .min(-3)
+    .max(3)
+    .step(0.01)
+    .name('Elevation')
+
+gui
+    .add(material, 'wireframe')
+    .name('Wireframe')
+
+gui
+    .addColor(parameter, 'color')
+    .onChange((color) => {
+        console.log(color);
+        material.color.set(color);
+    })

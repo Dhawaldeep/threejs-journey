@@ -10,7 +10,7 @@ import fragmentShader from './shaders/test/fragment.glsl'
  */
 // Debug
 const gui = new dat.GUI()
-
+gui.hide();
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 

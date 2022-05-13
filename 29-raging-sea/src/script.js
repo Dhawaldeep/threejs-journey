@@ -13,6 +13,7 @@ const gui = new dat.GUI({ width: 340 })
 const debugObject = {
     depthColor: '#186691',
     surfaceColor: '#9bd8ff',
+    fogColor: '#124c6d',
 };
 
 // Canvas
@@ -20,12 +21,14 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
+// Add fog to scene
+scene.fog = new THREE.Fog(debugObject.fogColor, 0.1, 5);
 
 /**
  * Water
  */
 // Geometry
-const waterGeometry = new THREE.PlaneGeometry(2, 2, 512, 512)
+const waterGeometry = new THREE.PlaneGeometry(10, 10, 512, 512)
 
 // Material
 const waterMaterial = new THREE.ShaderMaterial({
@@ -41,49 +44,63 @@ const waterMaterial = new THREE.ShaderMaterial({
         uSmallWavesElevation: { value: 0.15 },
         uSmallWavesFrequency: { value: 3.0 },
         uSmallWavesSpeed: { value: 0.2 },
-        uSmallWavesIterations: { value: 4.0},
+        uSmallWavesIterations: { value: 4.0 },
 
         uDepthColor: { value: new THREE.Color(debugObject.depthColor) },
         uSurfaceColor: { value: new THREE.Color(debugObject.surfaceColor) },
         uColorOffset: { value: 0.08, },
         uColorMultiply: { value: 5, },
-    }
+
+        fogColor: { type: "c", value: scene.fog.color },
+        fogNear: { type: "f", value: scene.fog.near },
+        fogFar: { type: "f", value: scene.fog.far }
+    },
+    fog: true
 })
+
+
 
 // Debug
 gui.add(waterMaterial.uniforms.uBigWavesElevation, 'value')
-.min(0).max(1).step(0.001).name('Big Waves Elevation');
+    .min(0).max(1).step(0.001).name('Big Waves Elevation');
 gui.add(waterMaterial.uniforms.uBigWavesFrequency.value, 'x')
-.min(0).max(10).step(0.001).name('Big Waves Frequency X');
+    .min(0).max(10).step(0.001).name('Big Waves Frequency X');
 gui.add(waterMaterial.uniforms.uBigWavesFrequency.value, 'y')
-.min(0).max(10).step(0.001).name('Big Waves Frequency Y');
+    .min(0).max(10).step(0.001).name('Big Waves Frequency Y');
 gui.add(waterMaterial.uniforms.uBigWavesSpeed, 'value')
-.min(0).max(4).step(0.001).name('Big Waves Speed');
+    .min(0).max(4).step(0.001).name('Big Waves Speed');
 
 gui.add(waterMaterial.uniforms.uSmallWavesElevation, 'value')
-.min(0).max(1).step(0.001).name('Small Waves Elevation');
+    .min(0).max(1).step(0.001).name('Small Waves Elevation');
 gui.add(waterMaterial.uniforms.uSmallWavesFrequency, 'value')
-.min(0).max(30).step(0.001).name('Small Waves Frequency');
+    .min(0).max(30).step(0.001).name('Small Waves Frequency');
 gui.add(waterMaterial.uniforms.uSmallWavesSpeed, 'value')
-.min(0).max(4).step(0.001).name('Small Waves Speed');
+    .min(0).max(4).step(0.001).name('Small Waves Speed');
 gui.add(waterMaterial.uniforms.uSmallWavesIterations, 'value')
-.min(0).max(5).step(1).name('Small Waves Iterations');
+    .min(0).max(5).step(1).name('Small Waves Iterations');
 
 gui.addColor(debugObject, 'depthColor')
-.name('Depth Color')
-.onChange(() => {
-    waterMaterial.uniforms.uDepthColor.value.set(debugObject.depthColor);
-});
+    .name('Depth Color')
+    .onChange(() => {
+        waterMaterial.uniforms.uDepthColor.value.set(debugObject.depthColor);
+    });
 gui.addColor(debugObject, 'surfaceColor')
-.name('Surface Color')
-.onChange(() => {
-    waterMaterial.uniforms.uSurfaceColor.value.set(debugObject.surfaceColor);
-});
+    .name('Surface Color')
+    .onChange(() => {
+        waterMaterial.uniforms.uSurfaceColor.value.set(debugObject.surfaceColor);
+    });
 
 gui.add(waterMaterial.uniforms.uColorOffset, 'value')
-.min(0).max(1).step(0.001).name('Color Offset');
+    .min(0).max(1).step(0.001).name('Color Offset');
 gui.add(waterMaterial.uniforms.uColorMultiply, 'value')
-.min(0).max(10).step(0.001).name('Color Multiply');
+    .min(0).max(10).step(0.001).name('Color Multiply');
+
+gui.addColor(debugObject, 'fogColor')
+    .name('Fog Color')
+    .onChange(() => {
+        scene.fog.color.set(debugObject.fogColor);
+        renderer.setClearColor(new THREE.Color(debugObject.fogColor));
+    })
 
 // Mesh
 const water = new THREE.Mesh(waterGeometry, waterMaterial)
@@ -98,8 +115,7 @@ const sizes = {
     height: window.innerHeight
 }
 
-window.addEventListener('resize', () =>
-{
+window.addEventListener('resize', () => {
     // Update sizes
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
@@ -133,14 +149,15 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+renderer.setClearColor(new THREE.Color(debugObject.fogColor));
+
 
 /**
  * Animate
  */
 const clock = new THREE.Clock()
 
-const tick = () =>
-{
+const tick = () => {
     const elapsedTime = clock.getElapsedTime()
 
     // Update water material

@@ -10,6 +10,7 @@ import galaxyFragmentShd from './shaders/galaxy/fragment.glsl';
  */
 // Debug
 const gui = new dat.GUI()
+gui.close();
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')

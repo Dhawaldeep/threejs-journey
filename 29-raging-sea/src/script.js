@@ -10,6 +10,8 @@ import waterFragmentShader from './shaders/water/fragment.glsl';
  */
 // Debug
 const gui = new dat.GUI({ width: 340 })
+gui.close();
+
 const debugObject = {
     depthColor: '#186691',
     surfaceColor: '#9bd8ff',

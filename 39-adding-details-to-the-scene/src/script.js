@@ -16,7 +16,7 @@ import portalFragmentShader from './shaders/portal/fragment.glsl';
 // Debug
 const debugObject = {
     clearColor: '#201919',
-    portalColorStart: '#201919',
+    portalColorStart: '#d9c9c9',
     portalColorEnd: '#201919',
 };
 const gui = new dat.GUI({

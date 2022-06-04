@@ -18,8 +18,8 @@ const loadingManager = new THREE.LoadingManager(
             gsap.to(overlayMaterial.uniforms.uAlpha, { duration: 3, value: 0, delay: 1 })
 
             // Update loadingBarElement
-            loadingBarElement.classList.add('ended')
-            loadingBarElement.style.transform = ''
+            loadingBarElement.classList.add('ended');
+            loadingBarElement.style.transform = '';
         }, 500);
         gsap.delayedCall(2, () => {
             sceneLoaded = true;

@@ -18,14 +18,6 @@ const scene = new THREE.Scene()
 // // mesh.position.z = -2;
 // mesh.position.set(1, -1, -2);
 // scene.add(mesh);
-// console.log(
-//     mesh.position.length(),
-//     Math.sqrt(
-//         Math.pow(mesh.position.x, 2) +
-//         Math.pow(mesh.position.y, 2) +
-//         Math.pow(mesh.position.z, 2)
-//     )
-// );
 
 // mesh.scale.set(2, 0.5, 1);
 // mesh.rotation.reorder('YXZ');

@@ -1,5 +1,4 @@
 const canvas = document.querySelector("canvas.webgl");
-console.log(canvas);
 // Scene
 const scene = new THREE.Scene();
 

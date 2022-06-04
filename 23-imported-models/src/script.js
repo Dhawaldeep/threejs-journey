@@ -117,7 +117,6 @@ gltfLoader.load(
     '/models/Fox/glTF/Fox.gltf',
     (gltf) =>
     {
-        console.log('success')
         mixer = new THREE.AnimationMixer(gltf.scene);
         const action = mixer.clipAction(gltf.animations[2]);
         action.play();
@@ -126,13 +125,9 @@ gltfLoader.load(
     },
     (progress) =>
     {
-        console.log('progress')
-        console.log(progress)
     },
     (error) =>
     {
-        console.log('error')
-        console.log(error)
     }
 )
 

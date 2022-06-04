@@ -54,7 +54,6 @@ const portalLightMaterial = new THREE.MeshBasicMaterial({ color: 0xffffe5 });
  * Model
  */
 gltfLoader.load('portal.glb', (gltf) => {
-    console.log(gltf.scene);
     gltf.scene.traverse(child => {
         if(child.name === 'Cube011' || child.name === 'Cube014' || child.name === 'Circle') {
             child.material = portalLightMaterial;

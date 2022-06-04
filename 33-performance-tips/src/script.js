@@ -158,7 +158,7 @@ tick()
  */
 
 // // Tip 4
-console.log(renderer.info)
+// console.log(renderer.info)
 
 // // Tip 6
 // scene.remove(cube)

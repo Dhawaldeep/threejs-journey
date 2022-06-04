@@ -19,7 +19,6 @@ const loadingManager = new THREE.LoadingManager(
     },
     // Progress
     (_, iLoaded, iTotal) => {
-        // console.log('loading');
         loadingBarEl.style.transform = `scaleX(${iLoaded/iTotal})`;
     },
 );

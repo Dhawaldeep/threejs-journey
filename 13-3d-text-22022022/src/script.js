@@ -117,7 +117,6 @@ fontLoader.load('/fonts/Digital-7_Regular.json', (font) => {
     transform();
 
     setInterval(() => {
-        console.log('transform()')
         transform()
     }, 15 * 1000)
 
@@ -148,7 +147,6 @@ fontLoader.load('/fonts/Digital-7_Regular.json', (font) => {
     // gui.add(parameters, 'textureUrl', parameters.textures)
     //     .name('Donut MatCap Texture')
     //     .onChange((textureUrl) => {
-    //         console.log('textureURL', textureUrl);
     //         matCapTexture = textureLoader.load(parameters.textureUrl);
     //         material.matcap = matCapTexture;
     //     })

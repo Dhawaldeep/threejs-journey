@@ -226,7 +226,6 @@ const tick = () => {
     if (sceneLoaded) {
         frustum.setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
         const isInsideFrustum = frustum.containsPoint(model.position);
-        console.log(isInsideFrustum);
         // Loop through the points
         for (const point of points) {
             const screenPosition = point.position.clone();

@@ -93,7 +93,6 @@ fontLoader.load('/fonts/helvetiker_regular.typeface.json', (font) => {
     gui.add(parameters, 'textureUrl', parameters.textures)
         .name('Donut MatCap Texture')
         .onChange((textureUrl) => {
-            console.log('textureURL', textureUrl);
             matCapTexture = textureLoader.load(parameters.textureUrl);
             material.matcap = matCapTexture;
         })

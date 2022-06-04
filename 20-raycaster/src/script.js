@@ -83,20 +83,16 @@ window.addEventListener('click', () => {
     if (currentIntersect) {
         const idx = objects.findIndex(object => currentIntersect.object === object);
         if (idx > -1) {
-            console.log(idx + 1);
         } 
         switch(currentIntersect.object)
         {
             case objects[0]:
-                console.log('click on object 1')
                 break
 
             case objects[1]:
-                console.log('click on object 2')
                 break
 
             case objects[2]:
-                console.log('click on object 3')
                 break
         }
     }
@@ -151,12 +147,10 @@ const tick = () => {
 
     if (intersections.length > 0) {
         if (!currentIntersect) {
-            console.log('mouse enter');
         }
         currentIntersect = intersections[0]
     } else {
         if (currentIntersect) {
-            console.log('mouse leave');
         }
         currentIntersect = null;
     }

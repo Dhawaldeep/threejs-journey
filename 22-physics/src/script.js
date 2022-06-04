@@ -24,7 +24,6 @@ world.allowSleep = true
 const hitSound = new Audio('/sounds/hit.mp3')
 
 const playHitSound = (collision) => {
-    console.log(collision.contact.getImpactVelocityAlongNormal())
     const impactStrength = collision.contact.getImpactVelocityAlongNormal()
 
     if(impactStrength > 1.5)

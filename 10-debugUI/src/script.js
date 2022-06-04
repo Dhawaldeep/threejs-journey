@@ -111,6 +111,5 @@ gui
 gui
     .addColor(parameter, 'color')
     .onChange((color) => {
-        console.log(color);
         material.color.set(color);
     })

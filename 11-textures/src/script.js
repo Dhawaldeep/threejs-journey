@@ -16,7 +16,6 @@ const scene = new THREE.Scene()
  */
 // const image = new Image()
 // image.onload = () => {
-//     console.log('image loaded')
 // }
 // image.src = '/textures/door/color.jpg'
 
@@ -35,34 +34,27 @@ const scene = new THREE.Scene()
 //     '/textures/door/color.jpg',
 //     () =>
 //     {
-//         console.log('loading finished')
 //     },
 //     () =>
 //     {
-//         console.log('loading progressing')
 //     },
 //     () =>
 //     {
-//         console.log('loading error')
 //     }
 // )
 
 const loadingManager = new THREE.LoadingManager()
 loadingManager.onStart = () =>
 {
-    console.log('loading started')
 }
 loadingManager.onLoad = () =>
 {
-    console.log('loading finished')
 }
 loadingManager.onProgress = () =>
 {
-    console.log('loading progressing')
 }
 loadingManager.onError = () =>
 {
-    console.log('loading error')
 }
 const textureLoader = new THREE.TextureLoader(loadingManager)
 // const colorTexture = textureLoader.load('/textures/door/color.jpg')
@@ -83,7 +75,6 @@ const roughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
  * Object
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-console.log(geometry.attributes.uv)
 const material = new THREE.MeshBasicMaterial({ map: colorTexture })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)

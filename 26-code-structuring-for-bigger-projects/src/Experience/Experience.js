@@ -37,10 +37,6 @@ export default class Experience {
             this.resize();
         });
 
-        this.time.on('trigger', () => {
-            this.update();
-        });
-
         // Time tick event
         this.time.on('tick', () => {
             this.update()

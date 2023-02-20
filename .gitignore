@@ -1,1 +1,8 @@
 node_modules
+45-r3f-env-staging/public/*
+46-r3f-load-model/public/*.glb
+46-r3f-load-model/public/FlightHelmet
+46-r3f-load-model/public/Fox
+48-r3f-portal/public/model/*
+52-r3f-physics/public/*.glb
+53-r3f-game/public/*.glb
